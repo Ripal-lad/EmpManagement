@@ -1,0 +1,68 @@
+﻿
+@model EmpManagement.Models.Employee
+
+@{
+    ViewBag.Title = "ECreate";
+}
+@using(Html.BeginForm())
+{
+<h2 style="color:blue"><u> Create New Data </u></h2>
+    @Html.AntiForgeryToken();
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model =>model.Name)
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>  Department: </td>
+                    <td>
+                  
+                      @Html.DropDownList("DName", new SelectList(ViewBag.DName, "Value", "Text"),"Select Department")
+                    </td>
+                </tr>
+        
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Designation)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Designation)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Emailid)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Emailid)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ContactNo)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.ContactNo)
+                    </td>
+                </tr>
+                <tr> </tr>
+                <tr>
+                    <td align="center">
+                        <button>Submit</button>
+                    </td>
+                    <td>
+                        <button> Cancel </button>
+                    </td>
+                </tr>
+            </table>
+
+  }
+
+
+
+

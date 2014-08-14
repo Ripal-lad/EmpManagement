@@ -1,0 +1,35 @@
+﻿@model IEnumerable<EmpManagement.Models.Dept>
+@{
+    ViewBag.Title = "DIndex";
+}
+
+<h2>DIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "DCreate")
+</p>
+<table class=" table" cellspacing="10">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DName)
+        </th>
+      
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.DName)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "DEdit", new { id = item.ID })
+                @Html.ActionLink("Delete", "DDelete", new { id = item.ID })
+                @Html.ActionLink("Details", "DDetails", new { id = item.ID })
+            </td>
+        </tr>
+    }
+    </table>
+
+

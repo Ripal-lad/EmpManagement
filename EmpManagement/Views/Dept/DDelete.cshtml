@@ -1,0 +1,51 @@
+﻿@model EmpManagement.Models.Dept
+@{
+    ViewBag.Title = "DDelete";
+}
+
+<h2>DDelete</h2>
+<h2> Are you sure You want to delete?</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    @* <dl class="dl-horizontal">*@
+    <table cellspacing="5">
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ID)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.DName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.DName)
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+            </td>
+            <td>
+                <button> Cancel </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            </td>
+        </tr>
+    </table>
+
+}
+
+

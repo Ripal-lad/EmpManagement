@@ -1,0 +1,62 @@
+﻿@model EmpManagement.Models.Employee
+@{
+    ViewBag.Title = "EDetails";
+}
+
+<h2>Details</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <table cellspacing="5">
+        
+            <tr>
+                <td>
+            @Html.DisplayNameFor(model => model.ID)
+        </td>
+               
+        <td>
+            @Html.DisplayFor(model => model.ID)
+        </td>
+      </tr>
+      <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Name)
+        </td>
+              
+        <td>
+            @Html.DisplayFor(model => model.Name)
+        </td>
+       </tr>
+          <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Emailid)
+        </td>
+               
+        <td>
+            @Html.DisplayFor(model => model.Emailid)
+        </td>
+         <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Designation)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Designation)
+        </td>
+       </tr>
+            <tr> 
+        <td>
+            @Html.DisplayNameFor(model => model.ContactNo)
+        </td>
+                
+        <td>
+            @Html.DisplayFor(model => model.ContactNo)
+        </td>
+         </tr>
+    </dl>
+</div>
+<p>
+         @Html.ActionLink("Edit", "EEdit", new { id = Model.ID }) |
+         @Html.ActionLink("Back to List", "EIndex") 
+
+</p>
+

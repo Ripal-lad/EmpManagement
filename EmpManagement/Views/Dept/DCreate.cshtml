@@ -1,0 +1,30 @@
+﻿@model EmpManagement.Models.Dept
+@{
+    ViewBag.Title = "DCreate";
+}
+
+<h2 style="color:blue"><u> Create New Data </u></h2>
+@using (Html.BeginForm())
+{
+   @Html.AntiForgeryToken();
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.DName)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.DName)
+            </td>
+        </tr>
+        <tr> </tr>
+        <tr>
+            <td align="center">
+                <button>Submit</button>
+            </td>
+            <td>
+                <button> Cancel </button>
+            </td>
+        </tr>
+    </table>
+
+}

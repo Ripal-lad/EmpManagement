@@ -1,0 +1,74 @@
+﻿@model EmpManagement.Models.Employee
+@{
+    ViewBag.Title = "EDelete";
+}
+
+<h2> Are you sure You want to delete?</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+   @* <dl class="dl-horizontal">*@
+        <table cellspacing="5">
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ID)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.ID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Emailid)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Emailid)
+                </td>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Designation)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Designation)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ContactNo)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.ContactNo)
+                </td>
+            </tr>
+         
+        <tr>
+            <td>
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+            </td>
+            <td>
+                <button> Cancel </button>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            </td>
+        </tr>
+   </table>
+        
+}
+

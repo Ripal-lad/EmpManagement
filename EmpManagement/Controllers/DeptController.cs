@@ -14,13 +14,29 @@ namespace EmpManagement.Controllers
     {
         private EmpContext db = new EmpContext();
        
-        public ActionResult DIndex()
+        public ActionResult DIndex(String DeptName)
         {
-            var e = from m in db.Dept
-                    select m;
+            var DeptLst = new List<string>();
 
-            return View(e);
+            var DeptQry = from d in db.Dept
+                           orderby d.ID
+                           select d.DName;
+
+            DeptLst.AddRange(DeptQry.Distinct());
+            ViewBag.DeptName = new SelectList(DeptLst);
+
+         
+            var Department = from m in db.Dept
+                    select m;
+          
+            if (!string.IsNullOrEmpty(DeptName))
+            {
+                Department = Department.Where(x => x.DName == DeptName);
+            }
+                                
+            return View(Department);
         }
+
         public ActionResult DCreate()
         {
             return View();
@@ -32,13 +48,27 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Dcreate([Bind(Include = "ID,DName")] Dept d)
         {
-            if (ModelState.IsValid)
-            {
-                db.Dept.Add(d);
-                db.SaveChanges();
-                return RedirectToAction("DIndex");
-            }
-            return View(d);
+            var depts = db.Dept.ToList();
+            SelectList deptlist1 = new SelectList(depts, "ID", "DName");
+            ViewBag.DeptList = deptlist1;
+
+                //foreach (var item in depts)
+                //{
+                //    if (item.DName == d.DName)
+                //    {
+                //        String msg = "Department already exist";
+                //        ViewData.Model = msg;
+                //        return ViewBag(msg);
+                //    }
+                //}
+                if (ModelState.IsValid)
+                {
+                    db.Dept.Add(d);
+                    db.SaveChanges();
+                    return RedirectToAction("DIndex");
+                }
+                
+             return View(d);
         }
 
         public ActionResult DEdit(int? id)
@@ -72,35 +102,18 @@ namespace EmpManagement.Controllers
 
         // Display details of the Employee
 
-        public ActionResult DDetails(String DName)
+        public ActionResult DDetails(int? id,Dept d1)
         {
-            var DeptList = new List<String>();
-            var Deptdetails = from m in db.emp
-                              orderby m.DeptID
-                              select m.DeptID;
-
-            //DeptList.AddRange(Deptdetails.Distinct());
-            ViewBag.DName = new SelectList(DeptList);
-        }
-        public ActionResult DDetails(int? id)
-        {
-
-          
-                     
-
+             var empdetails = from e in db.emp
+                             where e.DeptID == d1.ID
+                             select e;
+               
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dept e = db.Dept.Find(id);
-            if (e == null)
-            {
-                return HttpNotFound();
-            }
-            return View(e);
-        
+            return View(empdetails);
         }
-
         public ActionResult DDelete(int? id)
         {
             if (id == null)
@@ -121,6 +134,7 @@ namespace EmpManagement.Controllers
             Dept e = db.Dept.Find(id);
             db.Dept.Remove(e);
             db.SaveChanges();
+
             return RedirectToAction("DIndex");
         }
 

@@ -1,24 +1,23 @@
 ﻿@model EmpManagement.Models.Employee
 @{
     ViewBag.Title = "EDelete";
+    var x = ViewBag.DeptList;
 }
 
-<h2> Are you sure You want to delete?</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken();
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
 
-   @* <dl class="dl-horizontal">*@
-        <table cellspacing="5">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+
+    <div class="jumbotron">
+        <table cellspacing="10" align="center" class="table" cellpadding="5" style="font-size:large">
 
             <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.ID)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(model => model.ID)
-                </td>
+                <th align="center" colspan="2">
+                    <h2 style="color:blue"> Are you sure You want to delete Details of @Html.DisplayFor(model => model.Name)?</h2>
+                </th>
             </tr>
             <tr>
                 <td>
@@ -29,6 +28,15 @@
                     @Html.DisplayFor(model => model.Name)
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Department
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.department.DName)
+                </td>
+            </tr>
+
             <tr>
                 <td>
                     @Html.DisplayNameFor(model => model.Emailid)
@@ -54,21 +62,26 @@
                     @Html.DisplayFor(model => model.ContactNo)
                 </td>
             </tr>
-         
-        <tr>
-            <td>
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-            </td>
-            <td>
-                <button> Cancel </button>
-            </td>
+
+            <tr>
+                <td colspan="2" align="justify">
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "EEdit", new { id = Model.ID })
+                </td>
             </tr>
             <tr>
                 <td>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-            </td>
-        </tr>
-   </table>
-        
-}
+                    @Html.ActionLink("Back to List", "EIndex")
+                </td>
+            </tr>
+
+        </table>
+        </div>
+        }
 

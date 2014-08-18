@@ -12,6 +12,7 @@ namespace EmpManagement.Models
 
             // for each dept there are multiple Employee (1 -> m) / nabigation Property
             public virtual ICollection<Employee> ecol { get; set; }
+            
         }
 
     

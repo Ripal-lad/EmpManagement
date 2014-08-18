@@ -3,33 +3,40 @@
     ViewBag.Title = "DIndex";
 }
 
-<h2>DIndex</h2>
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
 
-<p>
-    @Html.ActionLink("Create New", "DCreate")
-</p>
+<h1 style="color:blue"> Department Details </h1>
+<div class="jumbotron">
 <table class=" table" cellspacing="10">
+      </tr>
+        <tr><td>
+            @Html.ActionLink("Create New", "DCreate")
+        </td></tr>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DName)
+            <b>Department Name</b>
+
         </th>
-      
+
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelitem => item.DName)
+               @Html.DisplayFor(modelitem => item.DName)
             </td>
-            
+
             <td>
                 @Html.ActionLink("Edit", "DEdit", new { id = item.ID })
-                @Html.ActionLink("Delete", "DDelete", new { id = item.ID })
-                @Html.ActionLink("Details", "DDetails", new { id = item.ID })
             </td>
+            <td>
+                @Html.ActionLink("Delete", "DDelete", new { id = item.ID })
+            </td>
+            <td>
+                @Html.ActionLink("Details", "DDetails", new { id = item.ID })
+        </td>
         </tr>
     }
-    </table>
-
-
+</table>
+    </div>

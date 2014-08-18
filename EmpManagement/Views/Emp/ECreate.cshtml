@@ -1,67 +1,105 @@
-﻿
-@model EmpManagement.Models.Employee
+﻿@model EmpManagement.Models.Employee
 
 @{
     ViewBag.Title = "ECreate";
+    var x = ViewBag.DeptList;
 }
-@using(Html.BeginForm())
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
+<script language="Javascript" type="text/javascript" src="@Url.Content("/content/js/Validation.js")">
+</script>
+@if (x.Items.Count == 0)
+{   <div class="jumbotron">
+    <h1> Currently There is no Department in dept Table </h1>
+    <h2> First add Department in Dept Table</h2>
+    <div>
+    @Html.ActionLink("Back to List", "EIndex")
+    </div>
+    <div>
+    @Html.ActionLink("Add Department", "~/C/Users/ripal/Documents/Visual Studio 2013/Projects/EmpManagement/EmpManagement/Views/Dept/DCreate")
+    </div>
+    </div>
+}
+else
 {
-<h2 style="color:blue"><u> Create New Data </u></h2>
-    @Html.AntiForgeryToken();
-            <table>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.Name)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(model =>model.Name)
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>  Department: </td>
-                    <td>
-                  
-                      @Html.DropDownList("DName", new SelectList(ViewBag.DName, "Value", "Text"),"Select Department")
-                    </td>
-                </tr>
-        
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.Designation)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(model => model.Designation)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.Emailid)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(model => model.Emailid)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.ContactNo)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(model => model.ContactNo)
-                    </td>
-                </tr>
-                <tr> </tr>
-                <tr>
-                    <td align="center">
-                        <button>Submit</button>
-                    </td>
-                    <td>
-                        <button> Cancel </button>
-                    </td>
-                </tr>
-            </table>
+using (Html.BeginForm())
+{
+    
+        <div class="jumbotron">
 
-  }
+                @Html.AntiForgeryToken();
+        @Html.ValidationSummary(true)
+        <table cellspacing="10" align="center" class="table" cellpadding="5" style="font-size:large">
+            <tr>
+                <td align="center">
+                    <h2 style="color:blue"><u> Create New Data </u></h2>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Name)
+                    @Html.HiddenFor(model => model.Name)
+                </td>
+            </tr>
+
+            <tr>
+                <td><b>  Department: </b></td>
+                <td>
+                    @Html.DropDownListFor((model => model.DeptID), ViewBag.DeptList as SelectList, "Select Department")
+                    @Html.HiddenFor(model => model.DeptID)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Designation)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Designation)
+                    @Html.HiddenFor(model => model.Designation)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Emailid)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Emailid)
+                    @Html.HiddenFor(model => model.Emailid)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ContactNo)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.ContactNo)
+                    @Html.HiddenFor(model => model.ContactNo)
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="submit" value="Create" name="Create" >
+                    <input type="reset" value="Cancel" name="Reset">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.ActionLink("Back to List", "EIndex")
+                </td>
+            </tr>
+        </table>
+    </div>
+       
+        }
+        }
 
 
 

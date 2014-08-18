@@ -3,13 +3,18 @@
     ViewBag.Title = "DEdit";
 }
 
-<h2>DEdit</h2>
-
-<h2 style="color:blue"><u> Edit Data </u></h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken();
-    <table>
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
+<div class="jumbotron">
+        @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+        
+    <table cellspacing="10" align="center" class="table" cellpadding="5" style="font-size:large">
+        <tr>
+            <td>
+                <h2 style="color:blue"> Update Department</h2>
+            </td>
+        </tr>
         <tr>
             <td>
                 @Html.LabelFor(model => model.DName)
@@ -19,12 +24,21 @@
             </td>
         </tr>
         <tr>
-            <td align="center">
-                <button>Submit</button>
-            </td>
-            <td>
-                <button> Cancel </button>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <input type="submit" value="Update">
+           
+                <input type="reset" value="Cancel">
             </td>
         </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Back to List", "DIndex")
+            </td>
+        <tr>
     </table>
-}
+        }
+  </div>
+    

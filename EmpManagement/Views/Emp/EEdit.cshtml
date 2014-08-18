@@ -3,51 +3,70 @@
     ViewBag.Title = "EEdit";
 }
 
-<h2 style="color:blue"><u> Edit Data </u></h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken();
-    <table>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Name)
-            </td>
-            <td>
-                @Html.TextBoxFor(model =>model.Name)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Designation)
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model.Designation)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Emailid)
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model.Emailid)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.ContactNo)
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model.ContactNo)
-            </td>
-        </tr>
-        <tr> </tr>
-        <tr>
-            <td align="center">
-                <button>Submit</button>
-            </td>
-            <td>
-                <button> Cancel </button>
-            </td>
-        </tr>
-    </table>
-}
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
+
+     @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+        <div class="jumbotron">
+            <table cellspacing="10" align="center" class="table" cellpadding="5" style="font-size:large">
+                <tr>
+                    <td align="center">
+                        <h2 style="color:blue"><u> Update Details of @Html.DisplayFor(model => model.Name) </u></h2>
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>  Department </b></td>
+                    <td>
+                        @Html.DropDownListFor((model => model.DeptID), ViewBag.DeptList as SelectList, "Select Department")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Designation)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Designation)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Emailid)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Emailid)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ContactNo)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.ContactNo)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="justify" colspan="2">
+                        <input type="submit" value="Update" name="Update">
+                        <input type="reset" value="Cancel" name="Reset">
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.ActionLink("Back to List", "EIndex")
+                    </td>
+                </tr>
+            </table>
+            </div>
+        }

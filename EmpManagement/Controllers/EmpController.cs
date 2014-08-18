@@ -14,15 +14,13 @@ namespace EmpManagement.Controllers
     public class EmpController : Controller
     {
         private EmpContext db = new EmpContext();
-        SelectListItem Department = new SelectListItem();
-        List<SelectListItem> items;
+      
         // GET: /EmpManagement/
         public ActionResult Index()
         {
             return View();
         }
    
-
         public ActionResult EIndex()
         {
             var e = from m in db.emp
@@ -32,59 +30,41 @@ namespace EmpManagement.Controllers
         }
         public ActionResult ECreate()
         {
-             var d = new EmpContext();
-            IEnumerable<SelectListItem> items = db.Dept
-              .Select(Department => new SelectListItem
-              {
-                  Value = Department.DName.ToString(),
-                  Text = Department.DName
-              });
-            ViewBag.DName = items;
+
+            var depts = db.Dept.ToList();
+          
+            SelectList deptlist1=new SelectList(depts, "ID", "DName");
+            ViewBag.DeptList = deptlist1;
            
+          
             return View();
        
         }
-
-
 
         // Post Empmanagement/Ecreate
         [HttpPost]
         // Prevents From Cross request site forgery 
         [ValidateAntiForgeryToken]
-        public ActionResult Ecreate([Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")] Employee em)
-        {
-            var data = db.Dept.ToList().Distinct();
-            items = new List<SelectListItem>();
-          //  Department = new SelectListItem();
-            ViewBag.Dept = new SelectList(db.Dept, "DeptID", "DName", em.DeptID);
-            foreach (var t in data)
-            {
-                Department.Text = t.DName;
-                Department.Value = t.ID.ToString();
-                items.Add(Department);
-
-                if (Department.Selected)
-                    {
-                        em.DeptID = int.Parse(Department.Value);
-                    }
-            }
-        
-        
-          
-            //    ViewBag.Dept = new SelectList(db.Dept, "DeptID", "DName", em.DeptID);
+        public ActionResult Ecreate( [Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")]Employee em)
+        {          
+   
                 if (ModelState.IsValid)
                 {
                     db.emp.Add(em);
                     db.SaveChanges();
                     return RedirectToAction("EIndex");
                 }
-            
+
             
             return View(em);
         }
         // Display details of the Employee
         public ActionResult EDetails(int? id)
         {
+            var depts = db.Dept.ToList();
+            SelectList deptlist1 = new SelectList(depts);
+            ViewBag.DeptList = deptlist1;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -99,7 +79,10 @@ namespace EmpManagement.Controllers
         // Redirect to the Edit page
         public ActionResult EEdit(int? id)
         {
-
+            var depts = db.Dept.ToList();
+            SelectList deptlist1 = new SelectList(depts, "ID", "DName");
+            ViewBag.DeptList = deptlist1;
+           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -128,6 +111,10 @@ namespace EmpManagement.Controllers
 
         public ActionResult EDelete(int? id)
         {
+            var depts = db.Dept.ToList();
+            SelectList deptlist1 = new SelectList(depts);
+            ViewBag.DeptList = deptlist1;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

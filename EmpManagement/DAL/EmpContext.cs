@@ -23,12 +23,7 @@ namespace EmpManagement.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-               /*  modelBuilder.Entity<Dept>()
-                .HasMany(dept => dept.ecol)
-                .WithRequired()
-                .HasForeignKey(emp => emp.DeptID);
-            */
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+              modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<EmpManagement.Models.Dept>
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
+
+<h1 style="color:blue"> Department Details </h1>
+<div class="jumbotron">
+    <table class=" table" cellspacing="10">
+           <tr>
+            <td>
+                @Html.ActionLink("Home", "../Home/Index")|
+                          @Html.ActionLink("Create New", "Create")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <b>Department Name</b>
+
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.DName)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+    </div>

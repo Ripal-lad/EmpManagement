@@ -119,17 +119,20 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Emp\Index.cshtml" />
-    <Content Include="Views\Emp\EIndex.cshtml" />
-    <Content Include="Views\Emp\ECreate.cshtml" />
-    <Content Include="Views\Emp\EDetails.cshtml" />
-    <Content Include="Views\Emp\EEdit.cshtml" />
-    <Content Include="Views\Emp\EDelete.cshtml" />
-    <Content Include="Views\Dept\DIndex.cshtml" />
-    <Content Include="Views\Dept\DCreate.cshtml" />
-    <Content Include="Views\Dept\DEdit.cshtml" />
-    <Content Include="Views\Dept\DDetails.cshtml" />
-    <Content Include="Views\Dept\DDelete.cshtml" />
+    <Content Include="Views\Emp\Create.cshtml" />
+    <Content Include="Views\Emp\Details.cshtml" />
+    <Content Include="Views\Emp\Edit.cshtml" />
+    <Content Include="Views\Emp\Delete.cshtml" />
+    <Content Include="Views\Dept\Index.cshtml" />
+    <Content Include="Views\Dept\Create.cshtml" />
+    <Content Include="Views\Dept\Edit.cshtml" />
+    <Content Include="Views\Dept\Details.cshtml" />
+    <Content Include="Views\Dept\Delete.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Emp\DeptNotAvailable.cshtml" />
+    <Content Include="Views\Dept\DeptAlreadyExist.cshtml" />
+    <Content Include="Views\Emp\Datanotavailable.cshtml" />
+    <Content Include="Views\Dept\NoDataFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

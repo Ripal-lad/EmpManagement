@@ -3,16 +3,17 @@
     ViewBag.Title = "Index";
 }
    
-<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
+
 <div class="jumbotron">
     <h2 style="color:blue" ><u>Employee Management System</u></h2>
     <p class="lead" style="color:chocolate">This Application will give the Details of Employees ans department. </p>
     <div></div>
    <div>
-      <a href="~/Views/Emp/EIndex.cshtml" style="color:olive"> Employee Detail</a>
+       @Html.ActionLink("Employee Detail","../Emp/Index")
      </div>
     <div>
-        <a href="~/Views/Dept/DIndex.cshtml" style="color:olive"> Department Detail</a>
+        @Html.ActionLink("Department Detail", "../Dept/Index")
+        
     </div>
  </div>
 

@@ -14,7 +14,8 @@ namespace EmpManagement.Controllers
     {
         private EmpContext db = new EmpContext();
        
-        public ActionResult DIndex(String DeptName)
+        // display the home page of the department
+        public ActionResult Index(String DeptName)
         {
             var DeptLst = new List<string>();
 
@@ -37,90 +38,113 @@ namespace EmpManagement.Controllers
             return View(Department);
         }
 
-        public ActionResult DCreate()
+        //Create
+        public ActionResult Create()
         {
-            return View();
+             return View();
         }
 
         // Post Empmanagement/Ecreate
         [HttpPost]
         // Prevents From Cross request site forgery 
         [ValidateAntiForgeryToken]
-        public ActionResult Dcreate([Bind(Include = "ID,DName")] Dept d)
+        public ActionResult create([Bind(Include = "ID,DName")] Dept d)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts, "ID", "DName");
             ViewBag.DeptList = deptlist1;
-
-                //foreach (var item in depts)
-                //{
-                //    if (item.DName == d.DName)
-                //    {
-                //        String msg = "Department already exist";
-                //        ViewData.Model = msg;
-                //        return ViewBag(msg);
-                //    }
-                //}
+       
+             ViewBag.dname = d.DName;
+             for (var i = 0; i < depts.Count(); i++)  // Check if deptartment already exist in dept entity.
+             {
+                 if (depts[i].DName == d.DName)
+                 {
+                    return RedirectToAction("DeptAlreadyExist");
+                 }
+             }
+            
                 if (ModelState.IsValid)
                 {
                     db.Dept.Add(d);
                     db.SaveChanges();
-                    return RedirectToAction("DIndex");
+                    return RedirectToAction("Index");
                 }
                 
              return View(d);
         }
+        
+        public ActionResult DeptAlreadyExist()
+        {
+            return View();
+        }
 
-        public ActionResult DEdit(int? id)
+        //Edit
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dept e = db.Dept.Find(id);
+            var e = db.Dept.Find(id);
             if (e == null)
             {
                 return HttpNotFound();
             }
             return View(e);
         }
-    
 
+       
         // It will Update data in entitty.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DEdit([Bind(Include = "ID,DName,")] Dept d)
+        public ActionResult Edit([Bind(Include = "ID,DName,")] Dept d)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(d).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("DIndex");
+                return RedirectToAction("Index");
             }
             return View(d);
         }
 
+      
         // Display details of the Employee
 
-        public ActionResult DDetails(int? id,Dept d1)
+        public ActionResult Details(int? id)
         {
-             var empdetails = from e in db.emp
-                             where e.DeptID == d1.ID
-                             select e;
-               
-            if (id == null)
+            var empdata = db.emp.ToList();
+            for (int i = 0; i < empdata.Count; i++) // It will Check wheather employees exist in respective department
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            return View(empdetails);
+                if (empdata[i].DeptID == id)
+                {
+                    var empdetails = from e in db.emp
+                                     where e.DeptID == id
+                                     select e;
+                    return View(empdetails);
+                }
+             }
+            
+                 if (id == null)
+                 {
+                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                 }
+                 return RedirectToAction("NoDataFound");
+           }
+
+        public ActionResult NoDataFound(int? id)
+        {
+            return View();
         }
-        public ActionResult DDelete(int? id)
+
+        //Delete
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dept e = db.Dept.Find(id);
+            var e = db.Dept.Find(id);
             if (e == null)
             {
                 return HttpNotFound();
@@ -129,13 +153,13 @@ namespace EmpManagement.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DDelete(int id)
+        public ActionResult Delete(int id)
         {
-            Dept e = db.Dept.Find(id);
+            var e = db.Dept.Find(id);
             db.Dept.Remove(e);
             db.SaveChanges();
 
-            return RedirectToAction("DIndex");
+            return RedirectToAction("Index");
         }
 
 

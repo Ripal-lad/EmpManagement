@@ -15,51 +15,70 @@ namespace EmpManagement.Controllers
     {
         private EmpContext db = new EmpContext();
       
-        // GET: /EmpManagement/
+        //Home page of the Employee
         public ActionResult Index()
         {
-            return View();
-        }
-   
-        public ActionResult EIndex()
-        {
+            var empdata = db.emp.ToList();
+            if (empdata.Count == 0)
+            {
+                return RedirectToAction("Datanotavailable");
+            }
             var e = from m in db.emp
                     select m;
 
             return View(e);
         }
-        public ActionResult ECreate()
+        // If there is no data in Employee entity.
+        public ActionResult Datanotavailable()
         {
+            return View();
+        }
+      
 
+        // Create
+        // Add  new employee details in Database
+        public ActionResult Create()
+        {
             var depts = db.Dept.ToList();
           
-            SelectList deptlist1=new SelectList(depts, "ID", "DName");
+            SelectList deptlist1=new SelectList(depts, "ID", "DName"); 
             ViewBag.DeptList = deptlist1;
-           
-          
-            return View();
-       
-        }
+            if (depts.Count == 0)
+            {
+                return RedirectToAction("DeptNotavailable");
+            }
 
-        // Post Empmanagement/Ecreate
+           return View();
+         }
+
+        // If there is no department in dept table.
+        public ActionResult DeptNotavailable()
+        {
+            return View();
+        }
+    
+
+        // Post Empmanagement/create
         [HttpPost]
         // Prevents From Cross request site forgery 
         [ValidateAntiForgeryToken]
-        public ActionResult Ecreate( [Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")]Employee em)
-        {          
-   
+        public ActionResult create( [Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")]Employee em)
+        {
+            var depts = db.Dept.ToList();
+            SelectList deptlist1 = new SelectList(depts, "ID", "DName");
+            ViewBag.DeptList = deptlist1;
                 if (ModelState.IsValid)
                 {
                     db.emp.Add(em);
                     db.SaveChanges();
-                    return RedirectToAction("EIndex");
-                }
-
-            
+                    return RedirectToAction("Index");
+                }            
             return View(em);
         }
+
+        // Details
         // Display details of the Employee
-        public ActionResult EDetails(int? id)
+        public ActionResult Details(int? id)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts);
@@ -69,15 +88,17 @@ namespace EmpManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee e = db.emp.Find(id);
+            var e = db.emp.Find(id);
             if (e == null)
             {
                 return HttpNotFound();
             }
             return View(e);
         }
+
+        //Edit
         // Redirect to the Edit page
-        public ActionResult EEdit(int? id)
+        public ActionResult Edit(int? id)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts, "ID", "DName");
@@ -87,7 +108,7 @@ namespace EmpManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee e = db.emp.Find(id);
+            var e = db.emp.Find(id);
             if (e == null)
             {
                 return HttpNotFound();
@@ -98,18 +119,23 @@ namespace EmpManagement.Controllers
         // It will Update data in entitty.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EEdit([Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")] Employee em)
+        public ActionResult Edit([Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")] Employee em)
         {
+            var depts = db.Dept.ToList();
+            SelectList deptlist1 = new SelectList(depts, "ID", "DName");
+            ViewBag.DeptList = deptlist1;
+
             if (ModelState.IsValid)
             {
                 db.Entry(em).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("EIndex");
+                return RedirectToAction("Index");
             }
             return View(em);
         }
 
-        public ActionResult EDelete(int? id)
+        //Delete
+        public ActionResult Delete(int? id)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts);
@@ -119,7 +145,7 @@ namespace EmpManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee e = db.emp.Find(id);
+            var e = db.emp.Find(id);
             if(e == null)
             {
                 return HttpNotFound();
@@ -129,16 +155,14 @@ namespace EmpManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EDelete(int id)
+        public ActionResult Delete(int id)
         {
-             Employee e = db.emp.Find(id);
+             var e = db.emp.Find(id);
                  db.emp.Remove(e);
                 db.SaveChanges();
-                return RedirectToAction("EIndex");
+                return RedirectToAction("Index");
         }
 
-        // Department
-        // GET: Dept
-      
+        
     }
 }

@@ -1,25 +1,69 @@
-﻿
+﻿@model IEnumerable<EmpManagement.Models.Employee>
+
 @{
     ViewBag.Title = "Index";
 }
 
 
-
-<h1 style="color:blue"><u>Employee Management</u></h1>
-
-    <div style="color:brown">
-        @Html.ActionLink("Emp Detail","EIndex");
-    </div>
+        <h1 style="color:blue;align-content:center"><u>Employee Details</u></h1>
     
-    <div style="color:brown">
-        @Html.ActionLink("Department Detail", "~/Views/Dept/DIndex");
+      <div class="jumbotron">
+        <table align="center" class="table" cellspacing="10" cellpadding="2">
+
+            <tr><td>
+                @Html.ActionLink("Home", "../Home/Index")|
+                 @Html.ActionLink("Create New", "Create")
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <b>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </b>
+                </th>
+                <th>
+                    <b>
+                        @Html.DisplayNameFor(model => model.Designation)
+                    </b>
+                </th>
+                
+                <th>
+                    <b>
+                        @Html.DisplayNameFor(model => model.Emailid)
+                    </b>
+                </th>
+                <th>
+                    <b>
+                        @Html.DisplayNameFor(model => model.ContactNo)
+                    </b>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Designation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Emailid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.ContactNo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        @Html.ActionLink("Details", "Details", new { id = item.ID })
+                    </td>
+                </tr>
+                
+            }
+
+
+
+        </table>
     </div>
-@*
-<div class="row">
-    <div class="col-md-4">
-        <p style="color:aqua"><a class="btn btn-default" style="color:brown"><b>Emp Details</b></a></p>
-    </div>
-    <div class="col-md-4">
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867" style="color:brown"><b>Dept Details</b></a></p>
-    </div>
-</div>*@

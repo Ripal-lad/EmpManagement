@@ -16,7 +16,9 @@
 
             <tr>
                 <th align="center" colspan="2">
-                    <h2 style="color:blue"> Are you sure You want to delete Details of @Html.DisplayFor(model => model.Name)?</h2>
+                    <h2 style="color:blue"> Are you sure you want to delete details of @Html.DisplayFor(model => model.Name)?</h2>
+                    <input type="submit" name="submit" value="Yes" class="btn btn-default" />
+                    <input type="submit" name="submit" value="No" class="btn btn-default" /> 
                 </th>
             </tr>
             <tr>
@@ -63,14 +65,7 @@
                 </td>
             </tr>
 
-            <tr>
-                <td colspan="2" align="justify">
-                    <input type="submit" value="Delete" class="btn btn-default" />
-                </td>
-
-            </tr>
-
-            <tr>
+                      <tr>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
                 </td>

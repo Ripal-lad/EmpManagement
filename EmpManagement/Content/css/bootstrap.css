@@ -621,7 +621,7 @@ dd {
   .dl-horizontal dd {
     margin-left: 180px;
   }
-  .dl-horizontal dd:before,
+  .dl-horizontal dd:before, 
   .dl-horizontal dd:after {
     display: table;
     content: " ";

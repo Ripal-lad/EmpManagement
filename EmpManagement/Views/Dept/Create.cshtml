@@ -8,7 +8,7 @@
     {
         <div class="jumbotron">
 
-            <h2 style="color:blue"><u> Create New Department </u></h2>
+            <h2 style="color:blue"> Create new department </h2>
           
                 @Html.AntiForgeryToken()
 
@@ -19,7 +19,7 @@
                         </td>
                         <td>
                             @Html.TextBoxFor(model => model.DName)
-                            @Html.ValidationMessageFor(model => model.DName,"Text only","required")
+                            @Html.ValidationMessageFor(model => model.DName,"This field is required")
                         </td>
                     </tr>
                     <tr>
@@ -36,6 +36,6 @@
                     <tr>
                         <td>
                 </table>
-                </div>
+       </div>
     
 }

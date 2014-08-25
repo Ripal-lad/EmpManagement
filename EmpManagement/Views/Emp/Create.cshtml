@@ -4,10 +4,10 @@
     ViewBag.Title = "Create";
     var x = ViewBag.DeptList;
 }
-@section JavaScript
-{
-    <script type="text/javascript" src="@Url.Content("/Content/js/Validation.js")"></script>
-}
+@*@section JavaScript
+    {
+        <script type="text/javascript" src="@Url.Content("/Content/js/Validation.js")"></script>
+    }*@
     @using (Html.BeginForm())
     {
              <div class="jumbotron">
@@ -16,7 +16,7 @@
                  <table cellspacing="10" align="center" class="table" cellpadding="5" style="font-size:large">
                     <tr>
                         <td align="center">
-                            <h2 style="color:blue"><u> Create New Data </u></h2>
+                            <h2 style="color:blue"> Create new employee </h2>
                         </td>
                     </tr>
 
@@ -34,7 +34,7 @@
                         <td><b>  Department: </b></td>
                         <td>
                             @Html.DropDownListFor((model => model.DeptID), ViewBag.DeptList as SelectList, "Select Department")
-                            @Html.ValidationMessageFor(model => model.DeptID,"The Department Field is Required")
+                            @Html.ValidationMessageFor(model => model.DeptID,"The department field is required")
                         </td>
                     </tr>
 

@@ -23,10 +23,8 @@ namespace EmpManagement.Controllers
             {
                 return RedirectToAction("Datanotavailable");
             }
-            var e = from m in db.emp
-                    select m;
 
-            return View(e);
+            return View(db.emp.ToList());
         }
         // If there is no data in Employee entity.
         public ActionResult Datanotavailable()
@@ -36,7 +34,7 @@ namespace EmpManagement.Controllers
       
 
         // Create
-        // Add  new employee details in Database
+        // Add  new employee details in database
         public ActionResult Create()
         {
             var depts = db.Dept.ToList();
@@ -60,9 +58,9 @@ namespace EmpManagement.Controllers
 
         // Post Empmanagement/create
         [HttpPost]
-        // Prevents From Cross request site forgery 
+        // Prevents from cross request site forgery 
         [ValidateAntiForgeryToken]
-        public ActionResult create( [Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")]Employee em)
+        public ActionResult create( Employee em)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts, "ID", "DName");
@@ -106,7 +104,7 @@ namespace EmpManagement.Controllers
            
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,"no data found");
             }
             var e = db.emp.Find(id);
             if (e == null)
@@ -116,10 +114,10 @@ namespace EmpManagement.Controllers
             return View(e);
         }
 
-        // It will Update data in entitty.
+        // It will update data in entitty.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Designation,ContactNo,Emailid,DeptID")] Employee em)
+        public ActionResult Edit(Employee em)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts, "ID", "DName");
@@ -137,6 +135,7 @@ namespace EmpManagement.Controllers
         //Delete
         public ActionResult Delete(int? id)
         {
+         
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts);
             ViewBag.DeptList = deptlist1;
@@ -155,14 +154,21 @@ namespace EmpManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, String submit)
         {
-             var e = db.emp.Find(id);
-                 db.emp.Remove(e);
+
+            if (submit.Equals("Yes"))
+            {
+                var e = db.emp.Find(id);
+                db.emp.Remove(e);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
-
-        
+               
     }
 }

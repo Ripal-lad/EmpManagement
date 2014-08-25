@@ -48,7 +48,7 @@ namespace EmpManagement.Controllers
         [HttpPost]
         // Prevents From Cross request site forgery 
         [ValidateAntiForgeryToken]
-        public ActionResult create([Bind(Include = "ID,DName")] Dept d)
+        public ActionResult create( Dept d)
         {
             var depts = db.Dept.ToList();
             SelectList deptlist1 = new SelectList(depts, "ID", "DName");
@@ -97,7 +97,7 @@ namespace EmpManagement.Controllers
         // It will Update data in entitty.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,DName,")] Dept d)
+        public ActionResult Edit( Dept d)
         {
             if (ModelState.IsValid)
             {
@@ -140,26 +140,43 @@ namespace EmpManagement.Controllers
         //Delete
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+         /*   var empdetail = db.emp.ToList();
+            for (int i = 0; i < empdetail.Count(); i++)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var e = db.Dept.Find(id);
-            if (e == null)
+                if (empdetail[i].DeptID == id)
+                {
+                    var empdata = from emplist in db.emp
+                                  select emplist;
+                    return View(empdata);
+                }
+            }*/
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            var deptdata = db.Dept.Find(id);
+            if (deptdata == null)
             {
                 return HttpNotFound();
             }
-            return View(e);
+            return View(deptdata);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, String submit)
         {
-            var e = db.Dept.Find(id);
-            db.Dept.Remove(e);
-            db.SaveChanges();
+            if (submit.Equals("Yes"))
+            {
+                var e = db.Dept.Find(id);
+                db.Dept.Remove(e);
+                db.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
 

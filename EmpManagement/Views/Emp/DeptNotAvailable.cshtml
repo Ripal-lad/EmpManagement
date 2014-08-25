@@ -5,13 +5,28 @@
 
 
 <div class="jumbotron">
-<h2 style="color:blue"> Currently There is no Department in dept Table </h2>
-    <h3 style="color:chocolate"> First add Department in Dept Table</h3>
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <table>
+        <tr>
+            <td>
+                <h2 style="color:blue"> Currently there is no department yet. </h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3 style="color:chocolate"> First add department details </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Add Department", "DeptController")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Back to List", "Index")
+
+            </td>
+        </tr>
+    </table>
 </div>
-<div>
-    @Html.ActionLink("Add Department", "DeptController")
-</div>
-    </div>
     

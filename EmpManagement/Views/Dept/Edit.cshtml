@@ -12,22 +12,23 @@
     <table cellspacing="10" align="center" class="table" cellpadding="5" style="font-size:large">
         <tr>
             <td>
-                <h2 style="color:blue"> Update Department</h2>
+                <h2 style="color:blue"> Update department</h2>
             </td>
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(model => model.DName)
+               Department:
             </td>
             <td>
                 @Html.TextBoxFor(model => model.DName)
+                @Html.ValidationMessageFor(model => model.DName,"This field is required")
             </td>
         </tr>
         <tr>
             <td></td>
         </tr>
         <tr>
-            <td align="center" colspan="2">
+            <td align="center" >
                 <input type="submit" value="Update">
            
                 <input type="reset" value="Cancel">

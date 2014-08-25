@@ -10,20 +10,19 @@ namespace EmpManagement.Models
     {
         public int ID { get; set; }
 
-        [Required]
-
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [Required ]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$", ErrorMessage = "Text only")]
         public String Name { get; set; }
         
         [Required]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$",ErrorMessage="Text only")]
         public String Designation { get; set; }
         
         [Required]
-        public String ContactNo { get; set; }
+        public String ContactNo { get; set; }       
         
         [Required]
-        [RegularExpression(@"^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$)")]
+        [RegularExpression(@"^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$)",ErrorMessage="Invalid email-id.") ]
         public string Emailid { get; set; }
         
         // Act as a foriegn key of dept class 
